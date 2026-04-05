@@ -70,7 +70,7 @@ export default function VideoPage() {
         audio: {
           channelCount: 1,
           echoCancellation: true,
-          noiseSuppression: true,
+          noiseSuppression: false,
           autoGainControl: false,
         },
       });
