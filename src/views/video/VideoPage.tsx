@@ -44,6 +44,7 @@ export default function VideoPage() {
   const router = useRouter();
   const videoId =
     (router.query.videoId as string | undefined) ?? DEFAULT_VIDEO_ID;
+  const isShorts = router.query.shorts === "1";
 
   // ─ YouTube ref ─
   const ytRef = useRef<YT.Player | null>(null);
@@ -271,8 +272,11 @@ export default function VideoPage() {
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-black flex flex-col">
-      {/* YouTube 16:9 */}
-      <div className="w-full" style={{ aspectRatio: "16/9" }}>
+      {/* YouTube — 쇼츠: 전체 높이 / 일반: 16:9 */}
+      <div
+        className="w-full"
+        style={isShorts ? { flex: 1 } : { aspectRatio: "16/9" }}
+      >
         <div className="w-full h-full relative">
           <ReactYouTube
             videoId={videoId}
@@ -283,7 +287,7 @@ export default function VideoPage() {
               height: "100%",
               playerVars: {
                 playsinline: 1,
-                controls: 1,
+                controls: isShorts ? 0 : 1,
                 rel: 0,
               },
             }}
