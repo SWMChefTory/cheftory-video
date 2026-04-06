@@ -260,6 +260,9 @@ export default function VideoPage() {
         if (data.type === "PLAY_VIDEO") {
           ytRef.current?.playVideo();
         }
+        if (data.type === "SET_VOLUME" && typeof data.volume === "number") {
+          ytRef.current?.setVolume(data.volume * 100);
+        }
       } catch {}
     };
     window.addEventListener("message", handleMessage);
